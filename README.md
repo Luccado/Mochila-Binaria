@@ -24,3 +24,7 @@ onde:
 **C** = Capacidade da Mochila
 
 As próximas N linhas descrevem os N itens, de modo que a i-ésima linha constitui o id, peso e lucro do i-ésimo item.
+
+### Rodando uma das Entradas de teste
+Dentro do terminal:
+`./Mochila.exe < Entradas/instancia1.txt`
