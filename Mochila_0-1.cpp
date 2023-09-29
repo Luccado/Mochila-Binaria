@@ -1,13 +1,23 @@
+/*
+Trabalho da disciplina de Projeto e analise de algoritmos 2023/1
+
+Alunos:
+Bruno Belo Comachio,
+Luccas Souza Di Oliveira,
+Matheus Mello De Azevedo.
+*/
 #include <iostream>
 #include <vector>
 #include <algorithm>
 #include <climits>
 #include <string.h>
+#include <cstdlib>
+#include <time.h>
+#include <chrono>
 
 #define INF INT_MAX/2
 
 using namespace std;
-
 
 int memo[10001][10001];
 
@@ -86,24 +96,70 @@ int main(){
 
     //Lendo todos os itens
     for(int i = 0; i < N; i++) cin >> item_list[i][0] >> item_list[i][1] >> item_list[i][2];
-    
+
+
+    //Começando a medir o tempo para a solução
+    //Usando Programação dinamica
+    auto t1_comeco = chrono::high_resolution_clock::now();
+    ios_base::sync_with_stdio(false);
+
     int max_profit = mochila(0, C, item_list);
+
+    auto t1_fim = chrono::high_resolution_clock::now();
+    
+    //Calculando o valor, do fim da execução menos o começo
+    //assim obtemos o tempo necessario para a execução
+    auto t1_ms = chrono::duration_cast<chrono::milliseconds>(t1_fim - t1_comeco);
+    double t1_seg = chrono::duration_cast<chrono::nanoseconds>(t1_fim - t1_comeco).count();
+    t1_seg *= 1e-9;
+
+
+    //Começando a medir o tempo para a solução
+    //Usando uma Heuristica Gulosa colocando sempre o item de maior valor
+    auto t2_comeco = chrono::high_resolution_clock::now();
+    ios_base::sync_with_stdio(false);
 
     int porValor_profit = porValor(C, item_list);
 
+    auto t2_fim = chrono::high_resolution_clock::now();
+    
+    auto t2_ms = chrono::duration_cast<chrono::milliseconds>(t2_fim - t2_comeco);
+    double t2_seg = chrono::duration_cast<chrono::nanoseconds>(t2_fim - t2_comeco).count();
+    t2_seg *= 1e-9;
+
+
+    //Começando a medir o tempo para a solução
+    //Usando uma outra Heuristica Gulosa colocando sempre o item de menor peso 
+    auto t3_comeco = chrono::high_resolution_clock::now();
+    ios_base::sync_with_stdio(false);
+
     int porPeso_profit = porPeso(C, item_list);
+
+    auto t3_fim = chrono::high_resolution_clock::now();
+    
+    auto t3_ms = chrono::duration_cast<chrono::milliseconds>(t3_fim - t3_comeco);
+    double t3_seg = chrono::duration_cast<chrono::nanoseconds>(t3_fim - t3_comeco).count();
+    t3_seg *= 1e-9;
+
+    
 
     cout <<"======================================="<< endl;
 
     cout << "Programacao Dinamica" << endl;
+    cout << "Tempo demorado em milisegs: " << t1_ms.count() << " ms\n";
+    cout << "Tempo demorado em segundos: " << t1_seg << " seg\n";
     cout << "O maior lucro possivel foi de: " << max_profit << endl;
     cout << "--------------------------------------" << endl;
 
     cout << "Guloso, porValor" << endl;
+    cout << "Tempo demorado em milisegs: " << t2_ms.count() << " ms\n";
+    cout << "Tempo demorado em segundos: " << t2_seg << " seg\n";
     cout << "O lucro obtido foi de: " << porValor_profit << endl;
     cout << "--------------------------------------" << endl;
 
     cout << "Guloso, porPeso" << endl;
+    cout << "Tempo demorado em milisegs: " << t3_ms.count() << " ms\n";
+    cout << "Tempo demorado em segundos: " << t3_seg << " seg\n";
     cout << "O lucro obtido foi de: " << porPeso_profit << endl;
     cout << "--------------------------------------" << endl;
 
