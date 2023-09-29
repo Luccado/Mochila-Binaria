@@ -81,6 +81,11 @@ int porPeso(int c, vector<vector<int>>& l){
     return lucro;
 }
 
+float desempenho(int re, int ro){
+    float valor = (100.0f * ((re - static_cast<float>(ro))/re));
+    return valor;
+}
+
 int main(){
 
     memset(memo, -1, sizeof memo);
@@ -141,7 +146,7 @@ int main(){
     double t3_seg = chrono::duration_cast<chrono::nanoseconds>(t3_fim - t3_comeco).count();
     t3_seg *= 1e-9;
 
-    
+
 
     cout <<"======================================="<< endl;
 
@@ -155,12 +160,20 @@ int main(){
     cout << "Tempo demorado em milisegs: " << t2_ms.count() << " ms\n";
     cout << "Tempo demorado em segundos: " << t2_seg << " seg\n";
     cout << "O lucro obtido foi de: " << porValor_profit << endl;
+
+    float valor1 = desempenho(max_profit,porValor_profit);
+    cout << "A resposta obtida esta: " << valor1 << '%' << " distante da solucao otima." << endl;
+
     cout << "--------------------------------------" << endl;
 
     cout << "Guloso, porPeso" << endl;
     cout << "Tempo demorado em milisegs: " << t3_ms.count() << " ms\n";
     cout << "Tempo demorado em segundos: " << t3_seg << " seg\n";
     cout << "O lucro obtido foi de: " << porPeso_profit << endl;
+
+    float valor2 = desempenho(max_profit,porPeso_profit);
+    cout << "A resposta obtida esta: " << valor2 << '%' << " distante da solucao otima." << endl;
+
     cout << "--------------------------------------" << endl;
 
     return 0;
