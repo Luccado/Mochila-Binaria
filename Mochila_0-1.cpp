@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <algorithm>
 #include <climits>
 #include <string.h>
 
@@ -30,6 +31,39 @@ int mochila(int i, int c,vector<vector<int>>& l){
 
 }
 
+int porValor(int c, vector<vector<int>>& l){
+
+    sort(l.begin(),l.end());
+    /*
+    for(int i = 0; i < n; i++){
+        cout << "id: " << l[i][0] << endl;
+        cout << "Peso: " << l[i][1] << endl;
+        cout << "Valor: " << l[i][2] << endl;
+        cout << "-------------" << endl;
+    }
+    */
+
+    int lucro = 0;
+    cout << "++++++++++++DEBUG++++++++++++" << endl;
+    
+    for(int i = 1; i < n; i++){
+        cout << "id: " << l[i][0] << endl;
+        cout << "Peso: " << l[i][1] << endl;
+        cout << "Valor: " << l[i][2] << endl;
+
+        if(l[i][1] <= c){
+            lucro += l[i][2];
+            c -= l[i][1];
+
+            cout << "Lucro: " << lucro << endl;
+        }
+        cout << "-------------" << endl;
+
+    }
+    
+    return lucro;
+}
+
 int main(){
 
     memset(memo, -1, sizeof memo);
@@ -48,7 +82,19 @@ int main(){
     
     int max_profit = mochila(0, C, item_list);
 
+    int porValor_profit = porValor(C, item_list);
+
+    cout <<"======================================="<< endl;
+
+    cout << "Programacao Dinamica" << endl;
     cout << "O maior lucro possivel foi de: " << max_profit << endl;
+    cout << "--------------------------------------" << endl;
+
+
+    cout << "Guloso, porValor" << endl;
+    cout << "O lucro obtido foi de: " << porValor_profit << endl;
+    cout << "--------------------------------------" << endl;
+
 
 
     return 0;
