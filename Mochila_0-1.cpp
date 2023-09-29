@@ -28,39 +28,46 @@ int mochila(int i, int c,vector<vector<int>>& l){
 
     return memo[i][c] = max(r1,r2);
 
+}
 
+bool customComparador_Valor(const vector<int>& a, const vector<int>& b){
+    return a[2] < b[2];
+}
+
+bool customComparador_Peso(const vector<int>& a, const vector<int>& b){
+    return a[1] < b[1];
 }
 
 int porValor(int c, vector<vector<int>>& l){
 
-    sort(l.begin(),l.end());
-    /*
-    for(int i = 0; i < n; i++){
-        cout << "id: " << l[i][0] << endl;
-        cout << "Peso: " << l[i][1] << endl;
-        cout << "Valor: " << l[i][2] << endl;
-        cout << "-------------" << endl;
-    }
-    */
+    sort(l.begin(),l.end(), customComparador_Valor);
 
     int lucro = 0;
-    cout << "++++++++++++DEBUG++++++++++++" << endl;
     
-    for(int i = 1; i < n; i++){
-        cout << "id: " << l[i][0] << endl;
-        cout << "Peso: " << l[i][1] << endl;
-        cout << "Valor: " << l[i][2] << endl;
-
+    for(int i = n-1; i >= 0; i--){
         if(l[i][1] <= c){
             lucro += l[i][2];
             c -= l[i][1];
-
-            cout << "Lucro: " << lucro << endl;
         }
-        cout << "-------------" << endl;
-
     }
     
+    return lucro;
+}
+
+int porPeso(int c, vector<vector<int>>& l){
+
+    sort(l.begin(),l.end(), customComparador_Peso);
+
+    int lucro = 0;
+
+    for(int i = 0; i < n; i++){
+        if(l[i][1] <=c)
+        {
+            lucro += l[i][2];
+            c -= l[i][1];
+        }
+    }
+
     return lucro;
 }
 
@@ -84,18 +91,21 @@ int main(){
 
     int porValor_profit = porValor(C, item_list);
 
+    int porPeso_profit = porPeso(C, item_list);
+
     cout <<"======================================="<< endl;
 
     cout << "Programacao Dinamica" << endl;
     cout << "O maior lucro possivel foi de: " << max_profit << endl;
     cout << "--------------------------------------" << endl;
 
-
     cout << "Guloso, porValor" << endl;
     cout << "O lucro obtido foi de: " << porValor_profit << endl;
     cout << "--------------------------------------" << endl;
 
-
+    cout << "Guloso, porPeso" << endl;
+    cout << "O lucro obtido foi de: " << porPeso_profit << endl;
+    cout << "--------------------------------------" << endl;
 
     return 0;
 }
